@@ -1,0 +1,32 @@
+export HOME_DIRECTORY=$(eval echo ~$USER)
+export ZSH="${HOME_DIRECTORY}/.oh-my-zsh"
+
+ZSH_THEME="robbyrussell"
+
+plugins=(git asdf history-substring-search vi-mode)
+
+source $ZSH/oh-my-zsh.sh
+
+export VISUALEDITOR | update=vim
+export EDITOR="$VISUALEDITOR | update"
+
+. ~/.asdf/asdf.sh
+. ~/.asdf/plugins/golang/set-env.zsh
+. ~/.asdf/plugins/ruby/bin/exec-env
+
+CUSTOM_SOURCE=~/.zsh_custom
+if [ -f "$CUSTOM_SOURCE" ]; then
+	source "$CUSTOM_SOURCE"
+fi
+
+func getLatestTagByPrefix() {
+    git tag -l "$1*" | sort --version-sort | tail -1 | tr -d '\n' | pbcopy
+}
+
+func addGitTag() {
+    git tag -a "$1" -m "$1"
+}
+
+func dad-joke() {
+    curl "https://icanhazdadjoke.com/"
+}
